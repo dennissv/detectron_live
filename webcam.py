@@ -42,7 +42,7 @@ stream = VideoStream()
 stream.start()
 cv2.namedWindow('Live')
 clientsocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-clientsocket.connect(('ec2-52-17-108-146.eu-west-1.compute.amazonaws.com',9111))
+clientsocket.connect(('ec2-52-49-153-237.eu-west-1.compute.amazonaws.com',9111))
 encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 75]
 data_r = ""
 payload_size = struct.calcsize("L")

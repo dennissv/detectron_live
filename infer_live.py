@@ -161,9 +161,14 @@ def main(args):
             thresh=0.7,
             kp_thresh=2,
         )
-        data_s = cv2.imencode('.jpg', c_img, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
-        data_s = pickle.dumps(data_s, protocol=2)
-        conn.sendall(struct.pack("L", len(data_s))+data_s)
+        try:
+            data_s = cv2.imencode('.jpg', c_img[:, :, ::-1], [int(cv2.IMWRITE_JPEG_QUALITY), 75])
+            data_s = pickle.dumps(data_s, protocol=2)
+            conn.sendall(struct.pack("L", len(data_s))+data_s)
+        except:
+            data_s = cv2.imencode('.jpg', im, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
+            data_s = pickle.dumps(data_s, protocol=2)
+            conn.sendall(struct.pack("L", len(data_s))+data_s)
 
 if __name__ == '__main__':
     workspace.GlobalInit(['caffe2', '--caffe2_log_level=0'])
